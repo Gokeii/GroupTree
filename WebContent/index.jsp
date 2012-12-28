@@ -53,7 +53,7 @@
 
 <body>
  	<%
- 		String stat = request.getParameter("stat");
+ 		String stat = (String)request.getAttribute("stat");
  		if (stat != null)
 	 		if (stat.equals("wrong")){
 	 			out.println("<div id=\"wrongmessage\" class=\"alert-messages\" style=\"display:block\">");
@@ -106,7 +106,7 @@
             </div>
 </div>    
     		<div id="container">
-			<form action="" class="loginform" method="post">
+			<form action="login" class="loginform" method="post">
 				<div class="login">SIGN IN</div>
 				<div class="username-text">Username:</div>
 				<div class="password-text">Password:</div>
