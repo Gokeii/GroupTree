@@ -11,5 +11,8 @@
 			method="testStruts">
 			<result name="OK">/index.jsp</result>
 		</action>
+		<action name="login" class="login" method="execute">
+			<result name="OK">/home.jsp</result>
+		</action>
 	</package>
 </struts> 
