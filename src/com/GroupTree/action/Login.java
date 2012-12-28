@@ -1,5 +1,6 @@
 package com.GroupTree.action;
 
+import com.GroupTree.utils.MainframeLogin;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class Login extends ActionSupport{
@@ -59,8 +60,11 @@ public class Login extends ActionSupport{
 
 
 	public String execute(){
-		stat = "stat";
-		message = "username or password is not right";
+		boolean isLogin = MainframeLogin.login(username, password);
+		if(isLogin)
+			return "success";
+		stat = "wrong";
+		message = "User name or password is not right";
 		return "fail";
 	}
 }
