@@ -8,6 +8,6 @@
 </head>
 <body>
 user name:	${username }<br>
-password:	${password }
+successful
 </body>
 </html>
