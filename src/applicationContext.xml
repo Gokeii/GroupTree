@@ -5,4 +5,6 @@
 		<property name="path" value="OK"></property>
 	</bean>
 	
+	<bean name="login" scope="prototype" class="com.GroupTree.action.Login">
+	</bean>
 </beans>
