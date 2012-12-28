@@ -11,6 +11,16 @@ public class Login extends ActionSupport{
 	
 	private String username;
 	private String password;
+	private String message;
+	private String stat = null;
+	
+	public String getMessage(){
+		return message;
+	}
+	
+	public String getStat(){
+		return stat;
+	}
 	
 	
 	
@@ -49,7 +59,8 @@ public class Login extends ActionSupport{
 
 
 	public String execute(){
-		
-		return "success";
+		stat = "stat";
+		message = "username or password is not right";
+		return "fail";
 	}
 }
