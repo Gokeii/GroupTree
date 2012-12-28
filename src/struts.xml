@@ -7,9 +7,21 @@
 	<constant name="struts.objectFactory" value="spring" />
 
 	<package name="test" extends="struts-default">
+		
+		<global-results>
+		   <result name = "error">/error.jsp</result>
+		  </global-results>
+		  <global-exception-mappings>
+		   <exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+		
 		<action name="helloWorld" class="com.GroupTree.action.HelloWorld"
 			method="testStruts">
 			<result name="OK">/index.jsp</result>
+		</action>
+		<action name="login" class="login" method="execute">
+			<result name="success">/Home.jsp</result>
+			<result name="fail">/index.jsp</result>
 		</action>
 	</package>
 </struts> 
