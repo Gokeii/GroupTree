@@ -8,6 +8,7 @@
 </head>
 <body>
 user name:	${username }<br>
-successful
+successful<br>
+${servletRequest.getSession().getAttribute("username") }
 </body>
 </html>

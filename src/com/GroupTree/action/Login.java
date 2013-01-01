@@ -1,9 +1,14 @@
 package com.GroupTree.action;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.interceptor.ServletRequestAware;
+
 import com.GroupTree.utils.MainframeLogin;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class Login extends ActionSupport{
+public class Login extends ActionSupport implements
+ServletRequestAware{
 
 	/**
 	 * 
@@ -14,7 +19,9 @@ public class Login extends ActionSupport{
 	private String password;
 	private String message;
 	private String stat = null;
+	private HttpServletRequest servletRequest;
 	
+
 	public String getMessage(){
 		return message;
 	}
@@ -61,10 +68,23 @@ public class Login extends ActionSupport{
 
 	public String execute(){
 		boolean isLogin = MainframeLogin.login(username, password);
-		if(isLogin)
+		if(isLogin){
+			this.servletRequest.getSession().setAttribute("username", username);
+			this.servletRequest.getSession().setAttribute("password", password);
 			return "success";
+		}
 		stat = "wrong";
 		message = "User name or password is not right";
 		return "fail";
 	}
+
+	public HttpServletRequest getServletRequest() {
+		return servletRequest;
+	}
+
+	public void setServletRequest(HttpServletRequest servletRequest) {
+		this.servletRequest = servletRequest;
+	}
+
+
 }
