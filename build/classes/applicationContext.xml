@@ -7,4 +7,12 @@
 	
 	<bean name="login" scope="prototype" class="com.GroupTree.action.Login">
 	</bean>
+	
+	<bean name="generateGroupTree" scope="prototype" class="com.GroupTree.action.GenerateGroupTree">
+		<property name="groupDAO" ref="testGroupDAO"></property>
+	</bean>
+	
+	
+	<bean name="testGroupDAO" class="Junit.Test.TestGroupDAOImpl">
+	</bean>
 </beans>
