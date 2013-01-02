@@ -54,6 +54,9 @@
 			//	alert(j);
 			//});
 		}
+		$('#connectedUsers label').click(function(){
+				alert(connectedUsers[$(this).index()].id);
+		});
 	};
 	//----------ztree区域------------
 	//function定义,节点点击触发
