@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import com.GroupTree.dao.GroupDAO;
+import com.GroupTree.model.ConnectedUser;
 import com.GroupTree.model.Group;
 import com.GroupTree.utils.MainframeCommandEntry;
 
@@ -70,23 +71,31 @@ public class GroupDAOImpl implements GroupDAO{
 			nowLine = infoLines[lineNo];
 			//set subgroups
 			List<String> subGroups = new LinkedList<String>();
-			i = 1;
-			while (nowLine.charAt(i) != '=') i++;
-			tmp = nowLine.substring(i+2).split(" ");
-			for (int k = 0; k < tmp.length; k++)
-				if (tmp[k] != "")
-					subGroups.add(tmp[k]);
-			lineNo++;
-			nowLine = infoLines[lineNo];
-			while (!nowLine.contains("USER(S)=")) {
-				tmp = nowLine.split(" ");
+			if (! nowLine.contains("NO SUBGROUPS")) {
+				i = 1;
+				while (nowLine.charAt(i) != '=') i++;
+				tmp = nowLine.substring(i+2).split(" ");
 				for (int k = 0; k < tmp.length; k++)
-					if (tmp[k] != "")
+					if (!tmp[k].equals(""))
 						subGroups.add(tmp[k]);
 				lineNo++;
 				nowLine = infoLines[lineNo];
+				while (!nowLine.contains("USER(S)=")) {
+					tmp = nowLine.split(" ");
+					for (int k = 0; k < tmp.length; k++)
+						if (!tmp[k].equals(""))
+							subGroups.add(tmp[k]);
+					lineNo++;
+					nowLine = infoLines[lineNo];
+				}
 			}
 			group.setSubGroups(subGroups);
+			
+			//set subgroups
+			List<ConnectedUser> users = new LinkedList<ConnectedUser>();
+			if (! nowLine.contains("NO USERS")) {
+			
+			}
 			
 			System.out.println(group.getId());
 			System.out.println(group.getSuperiorGroup());
