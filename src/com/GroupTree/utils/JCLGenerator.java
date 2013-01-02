@@ -6,11 +6,10 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.struts2.ServletActionContext;
 
 public class JCLGenerator {
 	public static FileInputStream JCLGenerate(String username, String command) throws IOException {
-		String path = ServletActionContext.getServletContext().getRealPath("/jcl/");
+		String path = System.getProperty("user.dir") + "/WebContent/jcl/";
 		String templatePath = JCLGenerator.class.getResource("../jcl/").getPath()+"template.jcl";
 		File template = new File(templatePath);
 		File newFile = new File(new File(path), username + ".jcl");
@@ -20,20 +19,19 @@ public class JCLGenerator {
 		String line = null;
 		int nowLength = 0;
 		while ((line = raf.readLine()) != null) {
-			if (line.contains("username")) {
+			if (line.contains("username") || line.contains("command")) {
 				raf.seek(nowLength);
-				line = line.replace("username", username);
+				if (line.contains("username"))
+					line = line.replace("username", username.toUpperCase());
+				else 
+					line = line.replace("command                 ", command.toUpperCase());
 				raf.writeBytes(line);
-			}
-			if (line.contains("command")) {
-				raf.seek(nowLength);
-				line = line.replace("command", command);
-				raf.writeBytes(line);
+				raf.seek(0);
+				nowLength = 0;
+				continue;
 			}
 			nowLength += line.length() + 2;
 		}
-		
-		raf.seek(0);
 		raf.close();
 
 		FileInputStream fis = new FileInputStream(newFile);
