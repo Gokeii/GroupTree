@@ -31,10 +31,15 @@
 	    processData : false,    //must declare
 			success : function(bean){
 				//获取信息,调用显示方法
-				if(isGroup)
+				//alert(bean.id);
+				if(isGroup){
+					//alert('g'+bean.id);
 					displayGroupInfo(bean);
-				else
+				}
+				else{
+					//alert('u'+bean.id);
 					displayUserInfo(bean);
+				}
 					
 			}
 		});
@@ -42,6 +47,8 @@
 	//function定义,在infoDiv中显示
 	var connectedUsers;
 	var displayGroupInfo = function(bean){
+		$('#groupInfo').show();
+		
 		$('#groupId').text(bean.id);
 		$('#created').text(bean.created);
 		$('#installationData').text(bean.installationData);
@@ -57,12 +64,12 @@
 	
 		}
 		$('#connectedUsers label').click(function(){
-			displayConnectedUsers(connectedUsers[$(this).index()]);
+			displayConnectedUsers(connectedUsers[$(this).index()/2]);
 		});
 		$('#connectedUsers a').click(function(){
 			$('#groupInfo').hide();
-			$('#userInfo').show();
-			readGroupInfo(connectedUsers[$(this).index()].id, false);
+			//$('#userInfo').show();
+			readGroupInfo(connectedUsers[($(this).index()-1)/2].id, false);
 			//displayUserInfo(connectedUsers[$(this).index()]);
 		});
 	};
@@ -79,6 +86,8 @@
 	//display users
 	var connectedGroups;
 	var displayUserInfo = function(bean){
+		$('#userInfo').show();
+		
 		$('#userId').text(bean.id);
 		$('#userName').text(bean.name);
 		$('#userCreated').text(bean.created);
@@ -106,12 +115,13 @@
 	
 		}
 		$('#connectedGroups label').click(function(){
-			displayConnectedGroups(connectedGroups[$(this).index()]);
+			displayConnectedGroups(connectedGroups[$(this).index()/2]);
 		});
 		$('#connectedGroups a').click(function(){
 			$('#userInfo').hide();
-			$('#groupInfo').show();
-			readGroupInfo(connectedUsers[$(this).index()].id, false);
+			//$('#groupInfo').show();
+			var i = ($(this).index() - 1)/2;
+			readGroupInfo(connectedGroups[i].id, true);
 			//displayConnectedUsers(connectedGroups[$(this).index()]);
 		});
 	};
@@ -159,6 +169,8 @@
 		$('#refreshTree').click(function(){
 			generateTree();
 		});
+		$('#groupInfo').hide();
+		$('#userInfo').hide();
 	});
 </script> 
 <title>Insert title here</title>
@@ -172,6 +184,7 @@
 <div id="infoDiv">
 	<!-- group info -->
 	<div id="groupInfo">
+		<h1>Group information:</h1>
 		<table>
 			<tr>
 				<td>ID:</td> 
@@ -206,6 +219,8 @@
 				<td id="connectedUsersId"></td>
 			</tr>
 		</table>
+		<b>------------------------------------------------------------------------</b>
+		<b>Connected users information:</b>
 		<table id="connectedUsersAttr">
 			<tr>
 				<td>ID:</td> 
@@ -239,6 +254,7 @@
 	</div>
 	<!-- user info -->
 	<div id="userInfo">
+		<h1>User information:</h1>
 		<table>
 			<tr>
 				<td>ID:</td>
@@ -321,6 +337,8 @@
 				<td id="connectedGroupsId"></td>
 			</tr>
 		</table>
+		<b>-----------------------------------------------------------------------------</b>
+		<b>Connected users information:</b>
 		<table id="connGroupsAttr">
 			<tr>
 				<td>ID:</td>

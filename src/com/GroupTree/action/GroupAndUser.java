@@ -55,14 +55,14 @@ public class GroupAndUser extends ActionSupport implements ServletRequestAware{
 	}
 	
 	public String getUserInfo(){
-		user = userDAO.getByID(name);
+		user = userDAO.getByID(name, "s992024", "228559");
 		//inputStream = new ByteArrayInputStream((name+"-user").getBytes());
-		return "success";
+		return "user";
 	}
 	
 	public String getGroupInfo(){
 		group = groupDAO.getByID(name, "s992024", "228559");
-		return "success";
+		return "group";
 	}
 	
 	public String getTreeInfo(){
