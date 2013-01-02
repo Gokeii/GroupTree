@@ -12,8 +12,92 @@ public class GroupDAOImpl implements GroupDAO{
 	public Group getByID(String ID, String username, String password) {
 		Group group = new Group();
 		try {
-			String info = MainframeCommandEntry.enterCommand(username, password, "LU "+ID);
+			String info = MainframeCommandEntry.enterCommand(username, password, "LG "+ID);
 			System.out.println(info);
+			String[] infoLines = info.split("\n");
+			String nowLine;
+			int lineNo = 2;
+			
+			//set id
+			String[] tmp = infoLines[lineNo].split(" ");
+			group.setId(tmp[tmp.length-1]);
+			lineNo++;
+			//set superior group
+			int i = 1;
+			nowLine = infoLines[lineNo];
+			while (nowLine.charAt(i) != '=') i++;
+			int j = i+1;
+			while (nowLine.charAt(j) != ' ') j++;
+			group.setSuperiorGroup(nowLine.substring(i+1, j));
+			//set owner
+			i = j;
+			while (nowLine.charAt(i) != '=') i++;
+			j = i+1;
+			while (nowLine.charAt(j) != ' ') j++;
+			group.setOwner(nowLine.substring(i+1, j));
+			//set created
+			i = j;
+			while (nowLine.charAt(i) != '=') i++;
+			j = i+1;
+			while (j < nowLine.length() && nowLine.charAt(j) != ' ') j++;
+			if (j == nowLine.length())
+				group.setCreated(nowLine.substring(i+1));
+			else 
+				group.setCreated(nowLine.substring(i+1, j));
+			
+			lineNo++;
+			nowLine = infoLines[lineNo];
+			//set installation data
+			i = 1;
+			while (nowLine.charAt(i) == ' ') i++;
+			group.setInstallationData(nowLine.substring(i));
+			
+			lineNo++;
+			nowLine = infoLines[lineNo];
+			//set model data set
+			i = 1;
+			while (nowLine.charAt(i) == ' ') i++;
+			group.setModelDataset(nowLine.substring(i));
+			
+			lineNo++;
+			nowLine = infoLines[lineNo];
+			//set termuacc
+			i = 1;	
+			while (nowLine.charAt(i) == ' ') i++;
+			group.setTermUAcc(nowLine.substring(i));
+			
+			lineNo++;
+			nowLine = infoLines[lineNo];
+			//set subgroups
+			List<String> subGroups = new LinkedList<String>();
+			i = 1;
+			while (nowLine.charAt(i) != '=') i++;
+			tmp = nowLine.substring(i+2).split(" ");
+			for (int k = 0; k < tmp.length; k++)
+				if (tmp[k] != "")
+					subGroups.add(tmp[k]);
+			lineNo++;
+			nowLine = infoLines[lineNo];
+			while (!nowLine.contains("USER(S)=")) {
+				tmp = nowLine.split(" ");
+				for (int k = 0; k < tmp.length; k++)
+					if (tmp[k] != "")
+						subGroups.add(tmp[k]);
+				lineNo++;
+				nowLine = infoLines[lineNo];
+			}
+			group.setSubGroups(subGroups);
+			
+			System.out.println(group.getId());
+			System.out.println(group.getSuperiorGroup());
+			System.out.println(group.getOwner());
+			System.out.println(group.getCreated());
+			System.out.println(group.getInstallationData());
+			System.out.println(group.getModelDataset());
+			System.out.println(group.getTermUAcc());
+			for (int k = 0; k<subGroups.size(); k++)
+					System.out.print(subGroups.get(k) + " ");
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
