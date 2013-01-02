@@ -94,7 +94,7 @@ public class GroupDAOImpl implements GroupDAO{
 			//set subgroups
 			List<ConnectedUser> users = new LinkedList<ConnectedUser>();
 			if (! nowLine.contains("NO USERS")) {
-			
+				
 			}
 			
 			System.out.println(group.getId());
