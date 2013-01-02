@@ -4,13 +4,21 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.URISyntaxException;
 
 import org.apache.commons.io.FileUtils;
 
 public class JCLGenerator {
 	public static FileInputStream JCLGenerate(String username, String command) throws IOException {
 		String path = System.getProperty("user.dir") + "/WebContent/jcl/";
-		String templatePath = JCLGenerator.class.getResource("../jcl/").getPath().replace("%20", " ")+"template.jcl";
+		String templatePath = null;
+		try {
+			templatePath = JCLGenerator.class.getResource("../jcl/").toURI().getPath()+"template.jcl";
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(templatePath);
 		File template = new File(templatePath);
 		File newFile = new File(new File(path), username + ".jcl");
 		FileUtils.copyFile(template, newFile);

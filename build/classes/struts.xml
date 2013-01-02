@@ -39,8 +39,11 @@
 			<result name="success">/Tree.jsp</result>
 		</action>
 		<action name="groupAndUser_*" class="groupAndUser" method="{1}">
-			<result name="success" type="json">
+			<result name="group" type="json">
 				<param name="root">group</param>
+			</result>
+			<result name="user" type="json">
+				<param name="root">user</param>
 			</result>
 			<result name="tree" type="json">
 				<param name="root">groupTree</param>

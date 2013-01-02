@@ -11,6 +11,7 @@ import com.GroupTree.dao.GroupDAO;
 import com.GroupTree.dao.UserDAO;
 import com.GroupTree.data.GroupTreeNode;
 import com.GroupTree.model.Group;
+import com.GroupTree.model.User;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class GroupAndUser extends ActionSupport implements ServletRequestAware{
@@ -28,7 +29,8 @@ public class GroupAndUser extends ActionSupport implements ServletRequestAware{
 	private String username;
 	private String password;
 	//ajax return
-	private Group group;	
+	private Group group;
+	private User user;
 	private List<GroupTreeNode> groupTree;
 	
 	//setters
@@ -45,19 +47,22 @@ public class GroupAndUser extends ActionSupport implements ServletRequestAware{
 	public Group getGroup(){
 		return group;
 	}
+	public User getUser(){
+		return user;
+	}
 	public List<GroupTreeNode> getGroupTree() {
 		return groupTree;
 	}
 	
 	public String getUserInfo(){
-		
+		user = userDAO.getByID(name, "s992024", "228559");
 		//inputStream = new ByteArrayInputStream((name+"-user").getBytes());
-		return "success";
+		return "user";
 	}
 	
 	public String getGroupInfo(){
 		group = groupDAO.getByID(name, "s992024", "228559");
-		return "success";
+		return "group";
 	}
 	
 	public String getTreeInfo(){
