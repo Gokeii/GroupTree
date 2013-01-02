@@ -36,6 +36,7 @@
 		});
 	};
 	//function定义,在infoDiv中显示
+	var connectedUsers;
 	var displayInfo = function(bean){
 		$('#groupId').text(bean.id);
 		$('#created').text(bean.created);
@@ -44,6 +45,15 @@
 		$('#owner').text(bean.owner);
 		$('#superiorGroup').text(bean.superiorGroup);
 		$('#termUAcc').text(bean.termUAcc);
+		connectedUsers = bean.users;
+		$('#connectedUsersId').empty();
+		for(var i=0;i < connectedUsers.length ; i++){
+			$('#connectedUsersId').append('<label> '+connectedUsers[i].id+' </label>');
+			//$('#connectedUsers laber:eq('+i+')').click(function(){
+			//	var j = i.clone;
+			//	alert(j);
+			//});
+		}
 	};
 	//----------ztree区域------------
 	//function定义,节点点击触发
@@ -117,6 +127,12 @@
 			<td>Term UAcc:</td> 
 			<td id="termUAcc"></td>
 		</tr>
+		<tr id="connectedUsers">
+			<td id="connectedUsersId">Connected users:</td> 
+		</tr>
+	</table>
+	<table id="">
+		
 	</table>
 </div>
 </body>
