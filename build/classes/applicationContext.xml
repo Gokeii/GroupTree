@@ -17,6 +17,7 @@
 	</bean>
 	
 	<bean name="groupDAO" class="com.GroupTree.dao.impl.GroupDAOImpl"></bean>
+	<bean name="userDAO" class="com.GroupTree.dao.impl.UserDAOImpl"></bean>
 	<bean name="testGroupDAO" class="Junit.Test.TestGroupDAOImpl">
 	</bean>
 	
