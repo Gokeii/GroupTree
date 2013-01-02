@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>GroupTree Sign In</title>
 	<link rel="stylesheet" href="style.css" />
-	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
 </head>
 <%
 	//UserHandlers.clearSessionAndCookies(request, response);

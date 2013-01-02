@@ -7,4 +7,18 @@
 	
 	<bean name="login" scope="prototype" class="com.GroupTree.action.Login">
 	</bean>
+	
+	<bean name="homeAction" scope="prototype" class="com.GroupTree.action.HomeAction">
+		<!--property name="groupDAO" ref="testGroupDAO"></property-->
+	</bean>
+	
+	<bean name="groupAndUser" scope="prototype" class="com.GroupTree.action.GroupAndUser">
+		<property name="groupDAO" ref="testGroupDAO"></property>
+	</bean>
+	
+	
+	<bean name="testGroupDAO" class="Junit.Test.TestGroupDAOImpl">
+	</bean>
+	
+	<bean name="checkInterceptor" class="com.GroupTree.interceptor.CheckInterceptor"></bean>
 </beans>

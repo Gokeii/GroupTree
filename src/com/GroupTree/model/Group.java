@@ -46,7 +46,7 @@ public class Group {
 	public String getModelDataset() {
 		return modelDataset;
 	}
-	public void setModel(String modelDataset) {
+	public void setModelDataset(String modelDataset) {
 		this.modelDataset = modelDataset;
 	}
 	public String getTermUAcc() {
