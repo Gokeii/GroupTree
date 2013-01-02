@@ -32,7 +32,7 @@
 			<result name="OK">/index.jsp</result>
 		</action>
 		<action name="login" class="login" method="execute">
-			<result name="success">/Home.jsp</result>
+			<result name="success" type="redirectAction">home</result>
 			<!-- result name="fail">/index.jsp</result-->
 		</action>
 		<action name="home" class="homeAction" method="execute">

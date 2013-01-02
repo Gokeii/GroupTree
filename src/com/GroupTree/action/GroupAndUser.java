@@ -55,13 +55,13 @@ public class GroupAndUser extends ActionSupport implements ServletRequestAware{
 	}
 	
 	public String getUserInfo(){
-		user = userDAO.getByID(name, "s992024", "228559");
+		user = userDAO.getByID(name, username, password);
 		//inputStream = new ByteArrayInputStream((name+"-user").getBytes());
 		return "user";
 	}
 	
 	public String getGroupInfo(){
-		group = groupDAO.getByID(name, "s992024", "228559");
+		group = groupDAO.getByID(name, username, password);
 		return "group";
 	}
 	
@@ -71,7 +71,7 @@ public class GroupAndUser extends ActionSupport implements ServletRequestAware{
 	}
 	
 	protected void generateTree(){
-		List<Group> groups = groupDAO.getAllGroups("s992024", "228559");
+		List<Group> groups = groupDAO.getAllGroups( username, password);
 		this.groupTree = new ArrayList<GroupTreeNode>();
 		for(Group group : groups){
 			GroupTreeNode gtn = new GroupTreeNode();
