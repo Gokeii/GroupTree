@@ -14,7 +14,7 @@ public class GroupDAOImpl implements GroupDAO{
 		Group group = new Group();
 		try {
 			String info = MainframeCommandEntry.enterCommand(username, password, "LG "+ID);
-			System.out.println(info);
+			/*System.out.println(info);*/
 			String[] infoLines = info.split("\n");
 			String nowLine;
 			int lineNo = 2;
@@ -80,7 +80,7 @@ public class GroupDAOImpl implements GroupDAO{
 						subGroups.add(tmp[k]);
 				lineNo++;
 				nowLine = infoLines[lineNo];
-				while (!nowLine.contains("USER(S)=")) {
+				while (!nowLine.contains("USER(S)=") && !nowLine.contains("NO USERS")) {
 					tmp = nowLine.split(" ");
 					for (int k = 0; k < tmp.length; k++)
 						if (!tmp[k].equals(""))
@@ -89,12 +89,16 @@ public class GroupDAOImpl implements GroupDAO{
 					nowLine = infoLines[lineNo];
 				}
 			}
+			else {
+				lineNo++;
+				nowLine = infoLines[lineNo];
+			}
 			group.setSubGroups(subGroups);
 			
-			System.out.println("-----------------");
 			//set users
 			List<ConnectedUser> users = new LinkedList<ConnectedUser>();
-			/*if (! nowLine.contains("NO USERS")) {
+			
+			if (! nowLine.contains("NO USERS")) {
 				lineNo++;
 				nowLine = infoLines[lineNo];
 				ConnectedUser connectedUser;
@@ -120,7 +124,7 @@ public class GroupDAOImpl implements GroupDAO{
 					i = 1;
 					while (nowLine.charAt(i) != '=') i++;
 					j = i+1;
-					while (nowLine.charAt(i) != ' ') j++;
+					while (nowLine.charAt(j) != ' ') j++;
 					connectedUser.setConnectAttributes(nowLine.substring(i+1, j));
 					
 					lineNo++;
@@ -129,22 +133,22 @@ public class GroupDAOImpl implements GroupDAO{
 					i = 1;
 					while (nowLine.charAt(i) != '=') i++;
 					j = i+1;
-					while (nowLine.charAt(i) != ' ') j++;
+					while (nowLine.charAt(j) != ' ') j++;
 					connectedUser.setRevokeDate(nowLine.substring(i+1, j));
 					i = j;
 					while (nowLine.charAt(i) != '=') i++;
 					j = i+1;
-					while (nowLine.charAt(i) != ' ') j++;
+					while (nowLine.charAt(j) != ' ') j++;
 					connectedUser.setResumeDate(nowLine.substring(i+1, j));
 					users.add(connectedUser);
 					
 					lineNo++;
 					nowLine = infoLines[lineNo];
 				}
-			}*/
+			}
 			group.setUsers(users);
 			
-			System.out.println(group.getId());
+			/*System.out.println(group.getId());
 			System.out.println(group.getSuperiorGroup());
 			System.out.println(group.getOwner());
 			System.out.println(group.getCreated());
@@ -153,8 +157,8 @@ public class GroupDAOImpl implements GroupDAO{
 			System.out.println(group.getTermUAcc());
 			for (int k = 0; k<subGroups.size(); k++)
 					System.out.print(subGroups.get(k) + " ");
-			for (int k = 0; k<subGroups.size(); k++)
-				System.out.println(users.get(k).getId() + " " + users.get(k).getAccess() + " " + users.get(k).getAccessCount() + " " + users.get(k).getConnectAttributes() + " " + users.get(k).getUniversalAccess() + " " + users.get(k).getRevokeDate() + " " + users.get(k).getResumeDate());
+			for (int k = 0; k<users.size(); k++)
+				System.out.println(users.get(k).getId() + " " + users.get(k).getAccess() + " " + users.get(k).getAccessCount() + " " + users.get(k).getConnectAttributes() + " " + users.get(k).getUniversalAccess() + " " + users.get(k).getRevokeDate() + " " + users.get(k).getResumeDate());*/
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

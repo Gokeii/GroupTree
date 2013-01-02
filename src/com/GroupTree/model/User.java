@@ -5,10 +5,11 @@ import java.util.List;
 public class User {
 	private String id;
 	private String name;
+	private String owner;
 	private String created;
 	private String defaultGroup;
 	private String passDate;
-	private int passInterval;
+	private String passInterval;
 	private String phraseDate;
 	private String attributes;
 	private String revokeDate;
@@ -54,10 +55,10 @@ public class User {
 	public void setPassDate(String passDate) {
 		this.passDate = passDate;
 	}
-	public int getPassInterval() {
+	public String getPassInterval() {
 		return passInterval;
 	}
-	public void setPassInterval(int passInterval) {
+	public void setPassInterval(String passInterval) {
 		this.passInterval = passInterval;
 	}
 	public String getPhraseDate() {
@@ -143,5 +144,11 @@ public class User {
 	}
 	public void setSecurityLabel(String securityLabel) {
 		this.securityLabel = securityLabel;
+	}
+	public String getOwner() {
+		return owner;
+	}
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 }

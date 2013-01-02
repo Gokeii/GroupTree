@@ -5,7 +5,7 @@ public class ConnectedGroup {
 	private String auth;
 	private String connectOwner;
 	private String connectDate;
-	private int connects;
+	private String connects;
 	private String uAcc;
 	private String lastConnect;
 	private String connectAttributes;
@@ -36,10 +36,10 @@ public class ConnectedGroup {
 	public void setConnectDate(String connectDate) {
 		this.connectDate = connectDate;
 	}
-	public int getConnects() {
+	public String getConnects() {
 		return connects;
 	}
-	public void setConnects(int connects) {
+	public void setConnects(String connects) {
 		this.connects = connects;
 	}
 	public String getuAcc() {
