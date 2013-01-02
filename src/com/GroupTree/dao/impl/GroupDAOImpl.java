@@ -94,7 +94,11 @@ public class GroupDAOImpl implements GroupDAO{
 			//set subgroups
 			List<ConnectedUser> users = new LinkedList<ConnectedUser>();
 			if (! nowLine.contains("NO USERS")) {
-				
+				lineNo++;
+				nowLine = infoLines[lineNo];
+				while (!nowLine.contains("READY")) {
+					
+				}
 			}
 			
 			System.out.println(group.getId());

@@ -10,7 +10,7 @@ import org.apache.commons.io.FileUtils;
 public class JCLGenerator {
 	public static FileInputStream JCLGenerate(String username, String command) throws IOException {
 		String path = System.getProperty("user.dir") + "/WebContent/jcl/";
-		String templatePath = JCLGenerator.class.getResource("../jcl/").getPath()+"template.jcl";
+		String templatePath = JCLGenerator.class.getResource("../jcl/").getPath().replace("%20", " ")+"template.jcl";
 		File template = new File(templatePath);
 		File newFile = new File(new File(path), username + ".jcl");
 		FileUtils.copyFile(template, newFile);
