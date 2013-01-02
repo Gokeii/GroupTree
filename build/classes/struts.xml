@@ -26,5 +26,8 @@
 		<action name="groupTree" class="generateGroupTree" method="execute">
 			<result name="success">/Tree.jsp</result>
 		</action>
+		<action name="getGroupOrUserInfo_*" class="getGroupOrUserInfo" method="{1}">
+			<result name="success" type="stream"></result>
+		</action>
 	</package>
 </struts> 

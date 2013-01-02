@@ -12,6 +12,9 @@
 		<property name="groupDAO" ref="testGroupDAO"></property>
 	</bean>
 	
+	<bean name="getGroupOrUserInfo" scope="prototype" class="com.GroupTree.action.GetGroupOrUserInfo">
+	</bean>
+	
 	
 	<bean name="testGroupDAO" class="Junit.Test.TestGroupDAOImpl">
 	</bean>
