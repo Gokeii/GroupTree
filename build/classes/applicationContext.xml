@@ -13,10 +13,10 @@
 	</bean>
 	
 	<bean name="groupAndUser" scope="prototype" class="com.GroupTree.action.GroupAndUser">
-		<property name="groupDAO" ref="testGroupDAO"></property>
+		<property name="groupDAO" ref="groupDAO"></property>
 	</bean>
 	
-	
+	<bean name="groupDAO" class="com.GroupTree.dao.impl.GroupDAOImpl"></bean>
 	<bean name="testGroupDAO" class="Junit.Test.TestGroupDAOImpl">
 	</bean>
 	

@@ -56,7 +56,7 @@ public class GroupAndUser extends ActionSupport implements ServletRequestAware{
 	}
 	
 	public String getGroupInfo(){
-		group = groupDAO.getByID(name, username, password);
+		group = groupDAO.getByID(name, "s992024", "228559");
 		return "success";
 	}
 	
@@ -66,7 +66,7 @@ public class GroupAndUser extends ActionSupport implements ServletRequestAware{
 	}
 	
 	protected void generateTree(){
-		List<Group> groups = groupDAO.getAllGroups(username, password);
+		List<Group> groups = groupDAO.getAllGroups("s992024", "228559");
 		this.groupTree = new ArrayList<GroupTreeNode>();
 		for(Group group : groups){
 			GroupTreeNode gtn = new GroupTreeNode();

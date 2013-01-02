@@ -28,7 +28,7 @@
 			  cache : false,
 	        enctype : 'multipart/form-data',
 	    contentType : false,    //must declare
-	     processData: false,    //must declare
+	    processData : false,    //must declare
 			success : function(bean){
 				//获取信息,调用显示方法
 				displayInfo(bean);
@@ -36,6 +36,7 @@
 		});
 	};
 	//function定义,在infoDiv中显示
+	var connectedUsers;
 	var displayInfo = function(bean){
 		$('#groupId').text(bean.id);
 		$('#created').text(bean.created);
@@ -44,6 +45,27 @@
 		$('#owner').text(bean.owner);
 		$('#superiorGroup').text(bean.superiorGroup);
 		$('#termUAcc').text(bean.termUAcc);
+		connectedUsers = bean.users;
+		$('#connectedUsersId').empty();
+		for(var i=0;i < connectedUsers.length ; i++){
+			$('#connectedUsersId').append('<label> '+connectedUsers[i].id+' </label>');
+			//$('#connectedUsers laber:eq('+i+')').click(function(){
+			//	var j = i.clone;
+			//	alert(j);
+			//});
+		}
+		$('#connectedUsers label').click(function(){
+			displayConnectedUsers(connectedUsers[$(this).index()]);
+		});
+	};
+	var displayConnectedUsers = function(bean){
+		$('#connectedUserId').text(bean.id);
+		$('#access').text(bean.access);
+		$('#accessCount').text(bean.accessCount);
+		$('#connectAttributes').text(bean.connectAttributes);
+		$('#resumeDate').text(bean.resumeDate);
+		$('#revokeDate').text(bean.revokeDate);
+		$('#universalAccess').text(bean.universalAccess);
 	};
 	//----------ztree区域------------
 	//function定义,节点点击触发
@@ -116,6 +138,39 @@
 		<tr>
 			<td>Term UAcc:</td> 
 			<td id="termUAcc"></td>
+		</tr>
+		<tr id="connectedUsers">
+			<td id="connectedUsersId">Connected users:</td> 
+		</tr>
+	</table>
+	<table id="connectedUsersAttr">
+		<tr>
+			<td>ID:</td> 
+			<td id="connectedUserId"></td>
+		</tr>
+		<tr>
+			<td>Access:</td> 
+			<td id="access"></td>
+		</tr>
+		<tr>
+			<td>Access count:</td> 
+			<td id="accessCount"></td>
+		</tr>
+		<tr>
+			<td>Connect attributes:</td> 
+			<td id="connectAttributes"></td>
+		</tr>
+		<tr>
+			<td>Resume date:</td> 
+			<td id="resumeDate"></td>
+		</tr>
+		<tr>
+			<td>Revoke date:</td> 
+			<td id="revokeDate"></td>
+		</tr>
+		<tr>
+			<td>Universal access:</td> 
+			<td id="universalAccess"></td>
 		</tr>
 	</table>
 </div>

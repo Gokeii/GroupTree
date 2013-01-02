@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.GroupTree.dao.GroupDAO;
+import com.GroupTree.model.ConnectedUser;
 import com.GroupTree.model.Group;
 
 public class TestGroupDAOImpl implements GroupDAO {
@@ -20,6 +21,15 @@ public class TestGroupDAOImpl implements GroupDAO {
 		group.setOwner("owner");
 		group.setSuperiorGroup("aaaa");
 		group.setTermUAcc("fdsfa");
+		List<ConnectedUser> users = new ArrayList<ConnectedUser>();
+		for(int i = 0; i<5; i++){
+			ConnectedUser u = new ConnectedUser();
+			u.setId("id"+i);
+			u.setAccess("access" + i);
+			u.setAccessCount("accessCount"+ i );
+			users.add(u);
+		}	
+		group.setUsers(users);
 		return group;
 	}
 
