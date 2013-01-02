@@ -31,13 +31,17 @@
 	    processData : false,    //must declare
 			success : function(bean){
 				//获取信息,调用显示方法
-				displayInfo(bean);
+				if(isGroup)
+					displayGroupInfo(bean);
+				else
+					displayUserInfo(bean);
+					
 			}
 		});
 	};
 	//function定义,在infoDiv中显示
 	var connectedUsers;
-	var displayInfo = function(bean){
+	var displayGroupInfo = function(bean){
 		$('#groupId').text(bean.id);
 		$('#created').text(bean.created);
 		$('#installationData').text(bean.installationData);
@@ -48,14 +52,18 @@
 		connectedUsers = bean.users;
 		$('#connectedUsersId').empty();
 		for(var i=0;i < connectedUsers.length ; i++){
-			$('#connectedUsersId').append('<label> '+connectedUsers[i].id+' </label>');
-			//$('#connectedUsers laber:eq('+i+')').click(function(){
-			//	var j = i.clone;
-			//	alert(j);
-			//});
+			$('#connectedUsersId').append('<label style="background-color:yellow"> '+connectedUsers[i].id+' </label>' +
+										'<a href="javascript:void(0);">more...</a>');
+	
 		}
 		$('#connectedUsers label').click(function(){
 			displayConnectedUsers(connectedUsers[$(this).index()]);
+		});
+		$('#connectedUsers a').click(function(){
+			$('#groupInfo').hide();
+			$('#userInfo').show();
+			readGroupInfo(connectedUsers[$(this).index()].id, false);
+			//displayUserInfo(connectedUsers[$(this).index()]);
 		});
 	};
 	var displayConnectedUsers = function(bean){
@@ -66,6 +74,58 @@
 		$('#resumeDate').text(bean.resumeDate);
 		$('#revokeDate').text(bean.revokeDate);
 		$('#universalAccess').text(bean.universalAccess);
+		
+	};
+	//display users
+	var connectedGroups;
+	var displayUserInfo = function(bean){
+		$('#userId').text(bean.id);
+		$('#userName').text(bean.name);
+		$('#userCreated').text(bean.created);
+		$('#userDefaultGroup').text(bean.defaultGroup);
+		$('#userPassDate').text(bean.passDate);
+		$('#userPassInterval').text(bean.passInterval);
+		$('#userPhraseDate').text(bean.phraseDate);
+		$('#userAttributes').text(bean.attributes);
+		$('#userRevokeDate').text(bean.revokeDate);
+		$('#userResumeDate').text(bean.resumeDate);
+		$('#userLastAccess').text(bean.lastAccess);
+		$('#userClassAuthorization').text(bean.classAuthorization);
+		$('#userInstallationData').text(bean.installationData);
+		$('#userModelName').text(bean.modelName);
+		$('#userLogonAllowedDays').text(bean.logonAllowedDays);
+		$('#userLogonAllowedTime').text(bean.logonAllowedTime);
+		$('#userSecurityLevel').text(bean.securityLevel);
+		$('#userCategoryAuthorization').text(bean.categoryAuthorization);
+		$('#userSecurityLabel').text(bean.securityLabel);
+		connectedGroups = bean.connectedGroups;
+		$('#connectedGroupsId').empty();
+		for(var i=0;i < connectedGroups.length ; i++){
+			$('#connectedGroupsId').append('<label style="background-color:yellow"> '+connectedGroups[i].id+' </label>' +
+										'<a href="javascript:void(0);">more...</a>');
+	
+		}
+		$('#connectedGroups label').click(function(){
+			displayConnectedGroups(connectedGroups[$(this).index()]);
+		});
+		$('#connectedGroups a').click(function(){
+			$('#userInfo').hide();
+			$('#groupInfo').show();
+			readGroupInfo(connectedUsers[$(this).index()].id, false);
+			//displayConnectedUsers(connectedGroups[$(this).index()]);
+		});
+	};
+	var displayConnectedGroups = function(bean){
+		$('#connGroupId').text(bean.id);
+		$('#connGroupAuth').text(bean.auth);
+		$('#connGroupConnectOwner').text(bean.connectOwner);
+		$('#connGroupConnectDate').text(bean.connectDate);
+		$('#connGroupConnects').text(bean.connects);
+		$('#connGroupUAcc').text(bean.uAcc);
+		$('#connGroupLastConnect').text(bean.lastConnect);
+		$('#connGroupConnectAttributes').text(bean.connectAttributes);
+		$('#connGroupRevokeDate').text(bean.revokeDate);
+		$('#connGroupResumeDate').text(bean.resumeDate);
 	};
 	//----------ztree区域------------
 	//function定义,节点点击触发
@@ -110,69 +170,200 @@
 	</ul>
 </div>
 <div id="infoDiv">
-	<table>
-		<tr>
-			<td>ID:</td> 
-			<td id="groupId"></td>
-		</tr>
-		<tr>
-			<td>Created:</td> 
-			<td id="created"></td>
-		</tr>
-		<tr>
-			<td>Installation data:</td> 
-			<td id="installationData"></td>
-		</tr>
-		<tr>
-			<td>Model data set:</td> 
-			<td id="modelDataset"></td>
-		</tr>
-		<tr>
-			<td>Owner:</td> 
-			<td id="owner"></td>
-		</tr>
-		<tr>
-			<td>Superior group:</td> 
-			<td id="superiorGroup"></td>
-		</tr>
-		<tr>
-			<td>Term UAcc:</td> 
-			<td id="termUAcc"></td>
-		</tr>
-		<tr id="connectedUsers">
-			<td id="connectedUsersId">Connected users:</td> 
-		</tr>
-	</table>
-	<table id="connectedUsersAttr">
-		<tr>
-			<td>ID:</td> 
-			<td id="connectedUserId"></td>
-		</tr>
-		<tr>
-			<td>Access:</td> 
-			<td id="access"></td>
-		</tr>
-		<tr>
-			<td>Access count:</td> 
-			<td id="accessCount"></td>
-		</tr>
-		<tr>
-			<td>Connect attributes:</td> 
-			<td id="connectAttributes"></td>
-		</tr>
-		<tr>
-			<td>Resume date:</td> 
-			<td id="resumeDate"></td>
-		</tr>
-		<tr>
-			<td>Revoke date:</td> 
-			<td id="revokeDate"></td>
-		</tr>
-		<tr>
-			<td>Universal access:</td> 
-			<td id="universalAccess"></td>
-		</tr>
-	</table>
+	<!-- group info -->
+	<div id="groupInfo">
+		<table>
+			<tr>
+				<td>ID:</td> 
+				<td id="groupId"></td>
+			</tr>
+			<tr>
+				<td>Created:</td> 
+				<td id="created"></td>
+			</tr>
+			<tr>
+				<td>Installation data:</td> 
+				<td id="installationData"></td>
+			</tr>
+			<tr>
+				<td>Model data set:</td> 
+				<td id="modelDataset"></td>
+			</tr>
+			<tr>
+				<td>Owner:</td> 
+				<td id="owner"></td>
+			</tr>
+			<tr>
+				<td>Superior group:</td> 
+				<td id="superiorGroup"></td>
+			</tr>
+			<tr>
+				<td>Term UAcc:</td> 
+				<td id="termUAcc"></td>
+			</tr>
+			<tr id="connectedUsers">
+				<td>Connected users:</td> 
+				<td id="connectedUsersId"></td>
+			</tr>
+		</table>
+		<table id="connectedUsersAttr">
+			<tr>
+				<td>ID:</td> 
+				<td id="connectedUserId"></td>
+			</tr>
+			<tr>
+				<td>Access:</td> 
+				<td id="access"></td>
+			</tr>
+			<tr>
+				<td>Access count:</td> 
+				<td id="accessCount"></td>
+			</tr>
+			<tr>
+				<td>Connect attributes:</td> 
+				<td id="connectAttributes"></td>
+			</tr>
+			<tr>
+				<td>Resume date:</td> 
+				<td id="resumeDate"></td>
+			</tr>
+			<tr>
+				<td>Revoke date:</td> 
+				<td id="revokeDate"></td>
+			</tr>
+			<tr>
+				<td>Universal access:</td> 
+				<td id="universalAccess"></td>
+			</tr>
+		</table>
+	</div>
+	<!-- user info -->
+	<div id="userInfo">
+		<table>
+			<tr>
+				<td>ID:</td>
+				<td id="userId"></td>
+			</tr>
+			<tr>
+				<td>User name:</td>
+				<td id="userName"></td>
+			</tr>	
+			<tr>
+				<td>Created:</td>
+				<td id="userCreated"></td>
+			</tr>
+			<tr>
+				<td>Default group:</td>
+				<td id="userDefaultGroup"></td>
+			</tr>
+			<tr>
+				<td>Pass date:</td>
+				<td id="userPassDate"></td>
+			</tr>
+			<tr>
+				<td>Pass interval:</td>
+				<td id="userPassInterval"></td>
+			</tr>
+			<tr>
+				<td>Phrase date:</td>
+				<td id="userPhraseDate"></td>
+			</tr>
+			<tr>
+				<td>Attributes:</td>
+				<td id="userAttributes"></td>
+			</tr>
+			<tr>
+				<td>Revoke date:</td>
+				<td id="userRevokeDate"></td>
+			</tr>
+			<tr>
+				<td>Resume date:</td>
+				<td id="userResumeDate"></td>
+			</tr>
+			<tr>
+				<td>Last access:</td>
+				<td id="userLastAccess"></td>
+			</tr>
+			<tr>
+				<td>Class authorization:</td>
+				<td id="userClassAuthorization"></td>
+			</tr>
+			<tr>
+				<td>Installation data:</td>
+				<td id="userInstallationData"></td>
+			</tr>
+			<tr>
+				<td>Model name:</td>
+				<td id="userModelName"></td>
+			</tr>
+			<tr>
+				<td>Logon allowed days:</td>
+				<td id="userLogonAllowedDays"></td>
+			</tr>
+			<tr>
+				<td>Logon allowed time:</td>
+				<td id="userLogonAllowedTime"></td>
+			</tr>
+			<tr>
+				<td>Security level:</td>
+				<td id="userSecurityLevel"></td>
+			</tr>
+			<tr>
+				<td>Category authorization:</td>
+				<td id="userCategoryAuthorization"></td>
+			</tr>
+			<tr>
+				<td>Security label:</td>
+				<td id="userSecurityLabel"></td>
+			</tr>
+			<tr id="connectedGroups">
+				<td>Connected groups:</td> 
+				<td id="connectedGroupsId"></td>
+			</tr>
+		</table>
+		<table id="connGroupsAttr">
+			<tr>
+				<td>ID:</td>
+				<td id="connGroupId"></td>
+			</tr>
+			<tr>
+				<td>Auth:</td>
+				<td id="connGroupAuth"></td>
+			</tr>
+			<tr>
+				<td>Connect owner:</td>
+				<td id="connGroupConnectOwner"></td>
+			</tr>
+			<tr>
+				<td>Connect date:</td>
+				<td id="connGroupConnectDate"></td>
+			</tr>
+			<tr>
+				<td>Connects:</td>
+				<td id="connGroupConnects"></td>
+			</tr>
+			<tr>
+				<td>UAcc:</td>
+				<td id="connGroupUAcc"></td>
+			</tr>
+			<tr>
+				<td>Last connect:</td>
+				<td id="connGroupLastConnect"></td>
+			</tr>
+			<tr>
+				<td>Connect attributes:</td>
+				<td id="connGroupConnectAttributes"></td>
+			</tr>
+			<tr>
+				<td>Revoke date:</td>
+				<td id="connGroupRevokeDate"></td>
+			</tr>
+			<tr>
+				<td>Resume date:</td>
+				<td id="connGroupResumeDate"></td>
+			</tr>
+		</table>
+	</div>
 </div>
 </body>
 </html>
