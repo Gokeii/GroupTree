@@ -91,15 +91,58 @@ public class GroupDAOImpl implements GroupDAO{
 			}
 			group.setSubGroups(subGroups);
 			
-			//set subgroups
+			System.out.println("-----------------");
+			//set users
 			List<ConnectedUser> users = new LinkedList<ConnectedUser>();
-			if (! nowLine.contains("NO USERS")) {
+			/*if (! nowLine.contains("NO USERS")) {
 				lineNo++;
 				nowLine = infoLines[lineNo];
+				ConnectedUser connectedUser;
 				while (!nowLine.contains("READY")) {
+					connectedUser = new ConnectedUser();
+					tmp = nowLine.substring(1).split(" ");
+					i = 0;
+					while (tmp[i].equals("")) i++;
+					connectedUser.setId(tmp[i]);
+					i++;
+					while (tmp[i].equals("")) i++;
+					connectedUser.setAccess(tmp[i]);
+					i++;
+					while (tmp[i].equals("")) i++;
+					connectedUser.setAccessCount(tmp[i]);
+					i++;
+					while (tmp[i].equals("")) i++;
+					connectedUser.setUniversalAccess(tmp[i]);
 					
+					lineNo++;
+					nowLine = infoLines[lineNo];
+					
+					i = 1;
+					while (nowLine.charAt(i) != '=') i++;
+					j = i+1;
+					while (nowLine.charAt(i) != ' ') j++;
+					connectedUser.setConnectAttributes(nowLine.substring(i+1, j));
+					
+					lineNo++;
+					nowLine = infoLines[lineNo];
+					
+					i = 1;
+					while (nowLine.charAt(i) != '=') i++;
+					j = i+1;
+					while (nowLine.charAt(i) != ' ') j++;
+					connectedUser.setRevokeDate(nowLine.substring(i+1, j));
+					i = j;
+					while (nowLine.charAt(i) != '=') i++;
+					j = i+1;
+					while (nowLine.charAt(i) != ' ') j++;
+					connectedUser.setResumeDate(nowLine.substring(i+1, j));
+					users.add(connectedUser);
+					
+					lineNo++;
+					nowLine = infoLines[lineNo];
 				}
-			}
+			}*/
+			group.setUsers(users);
 			
 			System.out.println(group.getId());
 			System.out.println(group.getSuperiorGroup());
@@ -110,7 +153,8 @@ public class GroupDAOImpl implements GroupDAO{
 			System.out.println(group.getTermUAcc());
 			for (int k = 0; k<subGroups.size(); k++)
 					System.out.print(subGroups.get(k) + " ");
-			
+			for (int k = 0; k<subGroups.size(); k++)
+				System.out.println(users.get(k).getId() + " " + users.get(k).getAccess() + " " + users.get(k).getAccessCount() + " " + users.get(k).getConnectAttributes() + " " + users.get(k).getUniversalAccess() + " " + users.get(k).getRevokeDate() + " " + users.get(k).getResumeDate());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
