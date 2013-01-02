@@ -6,12 +6,24 @@
 <struts>
 	<constant name="struts.objectFactory" value="spring" />
 
-	<package name="test" extends="struts-default">
+	<package name="test" extends="json-default">
+		<interceptors>
+		   	    <interceptor name="checkInterceptor" class="checkInterceptor"/>
+		        <interceptor-stack name="checkStack">
+		        	<interceptor-ref name="defaultStack"/>
+		        	<interceptor-ref name="checkInterceptor"/>
+		        </interceptor-stack>
+		</interceptors>
+		
+     	<default-interceptor-ref name="checkStack"/>
+		
 		
 		<global-results>
-		   <result name = "error">/error.jsp</result>
-		  </global-results>
-		  <global-exception-mappings>
+		   	<result name = "error">/error.jsp</result>
+		 	<result name="failToLogin">/index.jsp</result>
+		</global-results>
+		 
+		<global-exception-mappings>
 		   <exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
 		</global-exception-mappings>
 		
@@ -21,13 +33,18 @@
 		</action>
 		<action name="login" class="login" method="execute">
 			<result name="success">/Home.jsp</result>
-			<result name="fail">/index.jsp</result>
+			<!-- result name="fail">/index.jsp</result-->
 		</action>
-		<action name="groupTree" class="generateGroupTree" method="execute">
+		<action name="home" class="homeAction" method="execute">
 			<result name="success">/Tree.jsp</result>
 		</action>
-		<action name="getGroupOrUserInfo_*" class="getGroupOrUserInfo" method="{1}">
-			<result name="success" type="stream"></result>
+		<action name="groupAndUser_*" class="groupAndUser" method="{1}">
+			<result name="success" type="json">
+				<param name="root">group</param>
+			</result>
+			<result name="tree" type="json">
+				<param name="root">groupTree</param>
+			</result>
 		</action>
 	</package>
 </struts> 

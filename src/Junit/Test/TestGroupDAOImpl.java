@@ -11,7 +11,16 @@ public class TestGroupDAOImpl implements GroupDAO {
 	@Override
 	public Group getByID(String ID, String username, String password) {
 		// TODO Auto-generated method stub
-		return null;
+		System.out.println("username:"+username);
+		Group group = new Group();
+		group.setCreated("created");
+		group.setId(ID);
+		group.setInstallationData("installationData");
+		group.setModelDataset("fdsafda");
+		group.setOwner("owner");
+		group.setSuperiorGroup("aaaa");
+		group.setTermUAcc("fdsfa");
+		return group;
 	}
 
 	@Override

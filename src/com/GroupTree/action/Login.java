@@ -73,9 +73,7 @@ ServletRequestAware{
 			this.servletRequest.getSession().setAttribute("password", password);
 			return "success";
 		}
-		stat = "wrong";
-		message = "User name or password is not right";
-		return "fail";
+		return "failToLogin";
 	}
 
 	public HttpServletRequest getServletRequest() {

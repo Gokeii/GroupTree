@@ -16,10 +16,10 @@
 		var formData = new FormData();
 		formData.append('name', name);
 		if(isGroup){
-			infoUrl = "getGroupOrUserInfo_getGroupInfo";
+			infoUrl = "groupAndUser_getGroupInfo";
 		}
 		else {
-			infoUrl = "getGroupOrUserInfo_getUserInfo";
+			infoUrl = "groupAndUser_getUserInfo";
 		}	
 		$.ajax({
 			    url : infoUrl,
@@ -29,15 +29,21 @@
 	        enctype : 'multipart/form-data',
 	    contentType : false,    //must declare
 	     processData: false,    //must declare
-			success : function(data){
+			success : function(bean){
 				//获取信息,调用显示方法
-				displayInfo(data);
+				displayInfo(bean);
 			}
 		});
 	};
 	//function定义,在infoDiv中显示
-	var displayInfo = function(data){
-		$('#infoDiv').html(data);
+	var displayInfo = function(bean){
+		$('#groupId').text(bean.id);
+		$('#created').text(bean.created);
+		$('#installationData').text(bean.installationData);
+		$('#modelDataset').text(bean.modelDataset);
+		$('#owner').text(bean.owner);
+		$('#superiorGroup').text(bean.superiorGroup);
+		$('#termUAcc').text(bean.termUAcc);
 	};
 	//----------ztree区域------------
 	//function定义,节点点击触发
@@ -55,21 +61,63 @@
 			onClick: onClick
 		}
 	};
-	//ztree节点, 注意 下面的result注释不能删,十分重要,属于EL表达式传递信息
-	var zNodes =[//${result}
-	]; 
+	var generateTree = function(){
+		$('#treeDisplay').html('');
+		$.ajax({
+			    url : "groupAndUser_getTreeInfo",
+				success : function(zNodes){
+				//获取信息,调用显示方法
+				$.fn.zTree.init($('#treeDisplay'), setting, zNodes);
+			}
+		});
+	};
 	//ready后,生成树
 	$(document).ready(function(){ 
-		 $.fn.zTree.init($('#treeDemo'), setting, zNodes); 
+		generateTree();
+		$('#refreshTree').click(function(){
+			generateTree();
+		});
 	});
 </script> 
 <title>Insert title here</title>
 </head>
 <body>
+<button id="refreshTree">Refresh</button>
 <div id="ztreeBackground">
-	<ul id="treeDemo" class="ztree">
+	<ul id="treeDisplay" class="ztree">
 	</ul>
 </div>
-<div id="infoDiv"></div>
+<div id="infoDiv">
+	<table>
+		<tr>
+			<td>ID:</td> 
+			<td id="groupId"></td>
+		</tr>
+		<tr>
+			<td>Created:</td> 
+			<td id="created"></td>
+		</tr>
+		<tr>
+			<td>Installation data:</td> 
+			<td id="installationData"></td>
+		</tr>
+		<tr>
+			<td>Model data set:</td> 
+			<td id="modelDataset"></td>
+		</tr>
+		<tr>
+			<td>Owner:</td> 
+			<td id="owner"></td>
+		</tr>
+		<tr>
+			<td>Superior group:</td> 
+			<td id="superiorGroup"></td>
+		</tr>
+		<tr>
+			<td>Term UAcc:</td> 
+			<td id="termUAcc"></td>
+		</tr>
+	</table>
+</div>
 </body>
 </html>
