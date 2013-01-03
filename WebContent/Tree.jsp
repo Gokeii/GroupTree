@@ -45,6 +45,9 @@
 			success : function(bean){
 				//获取信息,调用显示方法
 				//alert(bean.id);
+				if(bean == null){
+					alert("You are not authorized for such actions.");
+				}
 				if(isGroup){
 					//alert('g'+bean.id);
 					displayGroupInfo(bean);
