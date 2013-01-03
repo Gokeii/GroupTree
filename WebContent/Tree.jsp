@@ -8,7 +8,20 @@
 <link rel="stylesheet" href="css/zTreeStyle/zTreeStyle.css" type="text/css"> 
 <script type="text/javascript" src="js/jquery.min.js"></script>  
 <script type="text/javascript" src="js/jquery.ztree.all-3.5.js"></script> 
+<link rel="stylesheet" href="style.css" type="text/css"> 
 <script type="text/javascript">
+
+	//Albus Shin style
+	function loadbarname() {
+		var strupbar = "url(images/upbar";
+		var ran = parseInt(Math.random() * 5 + 1);
+		strupbar += ran;
+		strupbar += ".png) left top no-repeat";
+		document.getElementById("upbar").style.background = strupbar;
+	}
+
+
+
 	//-----------ajax及显示区域------------------
 	//function定义,通过ajax从服务器读取信息，并在infoDiv中显示
 	var readGroupInfo = function(name, isGroup){
@@ -59,7 +72,7 @@
 		connectedUsers = bean.users;
 		$('#connectedUsersId').empty();
 		for(var i=0;i < connectedUsers.length ; i++){
-			$('#connectedUsersId').append('<label style="background-color:yellow"> '+connectedUsers[i].id+' </label>' +
+			$('#connectedUsersId').append('<label style="font-family:Consolas,Arial,Serif; font-size:16px; font-weight:bold"> '+connectedUsers[i].id+' </label>' +
 										'<a href="javascript:void(0);">more...</a>');
 	
 		}
@@ -110,7 +123,7 @@
 		connectedGroups = bean.connectedGroups;
 		$('#connectedGroupsId').empty();
 		for(var i=0;i < connectedGroups.length ; i++){
-			$('#connectedGroupsId').append('<label style="background-color:yellow"> '+connectedGroups[i].id+' </label>' +
+			$('#connectedGroupsId').append('<label style="font-family:Consolas,Arial,Serif; font-size:16px; font-weight:bold> '+connectedGroups[i].id+' </label>' +
 										'<a href="javascript:void(0);">more...</a>');
 	
 		}
@@ -165,6 +178,7 @@
 	};
 	//ready后,生成树
 	$(document).ready(function(){ 
+		loadbarname();
 		generateTree();
 		$('#refreshTree').click(function(){
 			generateTree();
@@ -173,214 +187,250 @@
 		$('#userInfo').hide();
 	});
 </script> 
-<title>Insert title here</title>
+<title>Tree Display - GroupTree</title>
 </head>
 <body>
-<button id="refreshTree">Refresh</button>
-<div id="ztreeBackground">
-	<ul id="treeDisplay" class="ztree">
-	</ul>
-</div>
-<div id="infoDiv">
-	<!-- group info -->
-	<div id="groupInfo">
-		<h1>Group information:</h1>
-		<table>
-			<tr>
-				<td>ID:</td> 
-				<td id="groupId"></td>
-			</tr>
-			<tr>
-				<td>Created:</td> 
-				<td id="created"></td>
-			</tr>
-			<tr>
-				<td>Installation data:</td> 
-				<td id="installationData"></td>
-			</tr>
-			<tr>
-				<td>Model data set:</td> 
-				<td id="modelDataset"></td>
-			</tr>
-			<tr>
-				<td>Owner:</td> 
-				<td id="owner"></td>
-			</tr>
-			<tr>
-				<td>Superior group:</td> 
-				<td id="superiorGroup"></td>
-			</tr>
-			<tr>
-				<td>Term UAcc:</td> 
-				<td id="termUAcc"></td>
-			</tr>
-			<tr id="connectedUsers">
-				<td>Connected users:</td> 
-				<td id="connectedUsersId"></td>
-			</tr>
-		</table>
-		<b>------------------------------------------------------------------------</b>
-		<b>Connected users information:</b>
-		<table id="connectedUsersAttr">
-			<tr>
-				<td>ID:</td> 
-				<td id="connectedUserId"></td>
-			</tr>
-			<tr>
-				<td>Access:</td> 
-				<td id="access"></td>
-			</tr>
-			<tr>
-				<td>Access count:</td> 
-				<td id="accessCount"></td>
-			</tr>
-			<tr>
-				<td>Connect attributes:</td> 
-				<td id="connectAttributes"></td>
-			</tr>
-			<tr>
-				<td>Resume date:</td> 
-				<td id="resumeDate"></td>
-			</tr>
-			<tr>
-				<td>Revoke date:</td> 
-				<td id="revokeDate"></td>
-			</tr>
-			<tr>
-				<td>Universal access:</td> 
-				<td id="universalAccess"></td>
-			</tr>
-		</table>
+<%
+		out.println("<div align='right'>"
+				+ "<div id='menu2' class='menu'>"
+				+ "<ul>"
+				+ "<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </li>"
+				+ "<li><a href='#'>HOME</a></li>"
+				+ "</div>"
+				+ "</ul>"
+				+ "</div>"
+				+ "<div id='upbar'>"
+				+ "    <div id='userbar'>"
+				+ "<img id='userbaravatar' src='http://www.gravatar.com/avatar/http://www.gravatar.com/avatar/<HASH>?s=45' align='left'/>"
+				+ "<div id='userbarelse'>"
+				+ "   <div id='username'>Tourist</div>"
+				+ "<img class='seperator' src='images/seperator.png' align='middle'/>"
+				+ "<div id='userbarcredit' onMouseOver='document.getElementById('credittipsy').style.display='block'' onmouseout='document.getElementById('credittipsy').style.display='none''>0</div>"
+				+ "<img class='seperator' src='images/seperator.png' align='middle'/>"
+				+ "<img id='signinicon' src='images/signinicon.png' onmouseover=\"this.src='images/signiniconpressed.png';document.getElementById('signinicontipsy').style.display='block'\" onmouseout=\"this.src='images/signinicon.png';document.getElementById('signinicontipsy').style.display='none'\" onclick=\"window.location.href='signin.jsp'\"/>"
+				+ "<img id='signupicon' src='images/signupicon.png' onmouseover=\"this.src='images/signupiconpressed.png';document.getElementById('signupicontipsy').style.display='block'\" onmouseout=\"this.src='images/signupicon.png';document.getElementById('signupicontipsy').style.display='none'\" onclick=\"window.location.href='signup.jsp'\"/>"
+				+ "</div>" + "</div>" + "</div>" + "</div>");
+%>
+<div class="leftBar">
+	<input type="image" id="refreshTree" src="images/refreshbutton.png" 
+	onmouseover="this.src='images/refreshbuttonpressed.png'" 
+	onmouseout="this.src='images/refreshbutton.png'" width="300px" align="center"/>
+	<div id="ztreeBackground">
+		<ul id="treeDisplay" class="ztree">
+		</ul>
 	</div>
-	<!-- user info -->
-	<div id="userInfo">
-		<h1>User information:</h1>
-		<table>
-			<tr>
-				<td>ID:</td>
-				<td id="userId"></td>
-			</tr>
-			<tr>
-				<td>User name:</td>
-				<td id="userName"></td>
-			</tr>	
-			<tr>
-				<td>Created:</td>
-				<td id="userCreated"></td>
-			</tr>
-			<tr>
-				<td>Default group:</td>
-				<td id="userDefaultGroup"></td>
-			</tr>
-			<tr>
-				<td>Pass date:</td>
-				<td id="userPassDate"></td>
-			</tr>
-			<tr>
-				<td>Pass interval:</td>
-				<td id="userPassInterval"></td>
-			</tr>
-			<tr>
-				<td>Phrase date:</td>
-				<td id="userPhraseDate"></td>
-			</tr>
-			<tr>
-				<td>Attributes:</td>
-				<td id="userAttributes"></td>
-			</tr>
-			<tr>
-				<td>Revoke date:</td>
-				<td id="userRevokeDate"></td>
-			</tr>
-			<tr>
-				<td>Resume date:</td>
-				<td id="userResumeDate"></td>
-			</tr>
-			<tr>
-				<td>Last access:</td>
-				<td id="userLastAccess"></td>
-			</tr>
-			<tr>
-				<td>Class authorization:</td>
-				<td id="userClassAuthorization"></td>
-			</tr>
-			<tr>
-				<td>Installation data:</td>
-				<td id="userInstallationData"></td>
-			</tr>
-			<tr>
-				<td>Model name:</td>
-				<td id="userModelName"></td>
-			</tr>
-			<tr>
-				<td>Logon allowed days:</td>
-				<td id="userLogonAllowedDays"></td>
-			</tr>
-			<tr>
-				<td>Logon allowed time:</td>
-				<td id="userLogonAllowedTime"></td>
-			</tr>
-			<tr>
-				<td>Security level:</td>
-				<td id="userSecurityLevel"></td>
-			</tr>
-			<tr>
-				<td>Category authorization:</td>
-				<td id="userCategoryAuthorization"></td>
-			</tr>
-			<tr>
-				<td>Security label:</td>
-				<td id="userSecurityLabel"></td>
-			</tr>
-			<tr id="connectedGroups">
-				<td>Connected groups:</td> 
-				<td id="connectedGroupsId"></td>
-			</tr>
-		</table>
-		<b>-----------------------------------------------------------------------------</b>
-		<b>Connected users information:</b>
-		<table id="connGroupsAttr">
-			<tr>
-				<td>ID:</td>
-				<td id="connGroupId"></td>
-			</tr>
-			<tr>
-				<td>Auth:</td>
-				<td id="connGroupAuth"></td>
-			</tr>
-			<tr>
-				<td>Connect owner:</td>
-				<td id="connGroupConnectOwner"></td>
-			</tr>
-			<tr>
-				<td>Connect date:</td>
-				<td id="connGroupConnectDate"></td>
-			</tr>
-			<tr>
-				<td>Connects:</td>
-				<td id="connGroupConnects"></td>
-			</tr>
-			<tr>
-				<td>UAcc:</td>
-				<td id="connGroupUAcc"></td>
-			</tr>
-			<tr>
-				<td>Last connect:</td>
-				<td id="connGroupLastConnect"></td>
-			</tr>
-			<tr>
-				<td>Connect attributes:</td>
-				<td id="connGroupConnectAttributes"></td>
-			</tr>
-			<tr>
-				<td>Revoke date:</td>
-				<td id="connGroupRevokeDate"></td>
-			</tr>
-			<tr>
-				<td>Resume date:</td>
-				<td id="connGroupResumeDate"></td>
-			</tr>
-		</table>
+</div>
+<div id="content">
+	<div id="infoDiv"	class="rightBar">
+		<!-- group info -->
+		<div id="groupInfo">
+			<div class="commentstitle">
+				<p >Group information:</p>
+			</div>
+			<table>
+				<tr>
+					<td>ID:</td> 
+					<td id="groupId"></td>
+				</tr>
+				<tr>
+					<td>Created:</td> 
+					<td id="created"></td>
+				</tr>
+				<tr>
+					<td>Installation data:</td> 
+					<td id="installationData"></td>
+				</tr>
+				<tr>
+					<td>Model data set:</td> 
+					<td id="modelDataset"></td>
+				</tr>
+				<tr>
+					<td>Owner:</td> 
+					<td id="owner"></td>
+				</tr>
+				<tr>
+					<td>Superior group:</td> 
+					<td id="superiorGroup"></td>
+				</tr>
+				<tr>
+					<td>Term UAcc:</td> 
+					<td id="termUAcc"></td>
+				</tr>
+				<tr id="connectedUsers">
+					<td>Connected users:</td> 
+					<td id="connectedUsersId"></td>
+				</tr>
+			</table>
+			<hr/>
+			<div class="commentstitle">
+				<p >Connected users information:</p>
+			</div>
+			<table id="connectedUsersAttr">
+				<tr>
+					<td>ID:</td> 
+					<td id="connectedUserId"></td>
+				</tr>
+				<tr>
+					<td>Access:</td> 
+					<td id="access"></td>
+				</tr>
+				<tr>
+					<td>Access count:</td> 
+					<td id="accessCount"></td>
+				</tr>
+				<tr>
+					<td>Connect attributes:</td> 
+					<td id="connectAttributes"></td>
+				</tr>
+				<tr>
+					<td>Resume date:</td> 
+					<td id="resumeDate"></td>
+				</tr>
+				<tr>
+					<td>Revoke date:</td> 
+					<td id="revokeDate"></td>
+				</tr>
+				<tr>
+					<td>Universal access:</td> 
+					<td id="universalAccess"></td>
+				</tr>
+			</table>
+		</div>
+		<!-- user info -->
+		<div id="userInfo">
+		
+			<div class="commentstitle">
+				<p >User information:</p>
+			</div>
+			<table>
+				<tr>
+					<td>ID:</td>
+					<td id="userId"></td>
+				</tr>
+				<tr>
+					<td>User name:</td>
+					<td id="userName"></td>
+				</tr>	
+				<tr>
+					<td>Created:</td>
+					<td id="userCreated"></td>
+				</tr>
+				<tr>
+					<td>Default group:</td>
+					<td id="userDefaultGroup"></td>
+				</tr>
+				<tr>
+					<td>Pass date:</td>
+					<td id="userPassDate"></td>
+				</tr>
+				<tr>
+					<td>Pass interval:</td>
+					<td id="userPassInterval"></td>
+				</tr>
+				<tr>
+					<td>Phrase date:</td>
+					<td id="userPhraseDate"></td>
+				</tr>
+				<tr>
+					<td>Attributes:</td>
+					<td id="userAttributes"></td>
+				</tr>
+				<tr>
+					<td>Revoke date:</td>
+					<td id="userRevokeDate"></td>
+				</tr>
+				<tr>
+					<td>Resume date:</td>
+					<td id="userResumeDate"></td>
+				</tr>
+				<tr>
+					<td>Last access:</td>
+					<td id="userLastAccess"></td>
+				</tr>
+				<tr>
+					<td>Class authorization:</td>
+					<td id="userClassAuthorization"></td>
+				</tr>
+				<tr>
+					<td>Installation data:</td>
+					<td id="userInstallationData"></td>
+				</tr>
+				<tr>
+					<td>Model name:</td>
+					<td id="userModelName"></td>
+				</tr>
+				<tr>
+					<td>Logon allowed days:</td>
+					<td id="userLogonAllowedDays"></td>
+				</tr>
+				<tr>
+					<td>Logon allowed time:</td>
+					<td id="userLogonAllowedTime"></td>
+				</tr>
+				<tr>
+					<td>Security level:</td>
+					<td id="userSecurityLevel"></td>
+				</tr>
+				<tr>
+					<td>Category authorization:</td>
+					<td id="userCategoryAuthorization"></td>
+				</tr>
+				<tr>
+					<td>Security label:</td>
+					<td id="userSecurityLabel"></td>
+				</tr>
+				<tr id="connectedGroups">
+					<td>Connected groups:</td> 
+					<td id="connectedGroupsId"></td>
+				</tr>
+			</table>
+			<hr>
+			<div class="commentstitle">
+				<p >Connected users information:</p>
+			</div>
+			<table id="connGroupsAttr">
+				<tr>
+					<td>ID:</td>
+					<td id="connGroupId"></td>
+				</tr>
+				<tr>
+					<td>Auth:</td>
+					<td id="connGroupAuth"></td>
+				</tr>
+				<tr>
+					<td>Connect owner:</td>
+					<td id="connGroupConnectOwner"></td>
+				</tr>
+				<tr>
+					<td>Connect date:</td>
+					<td id="connGroupConnectDate"></td>
+				</tr>
+				<tr>
+					<td>Connects:</td>
+					<td id="connGroupConnects"></td>
+				</tr>
+				<tr>
+					<td>UAcc:</td>
+					<td id="connGroupUAcc"></td>
+				</tr>
+				<tr>
+					<td>Last connect:</td>
+					<td id="connGroupLastConnect"></td>
+				</tr>
+				<tr>
+					<td>Connect attributes:</td>
+					<td id="connGroupConnectAttributes"></td>
+				</tr>
+				<tr>
+					<td>Revoke date:</td>
+					<td id="connGroupRevokeDate"></td>
+				</tr>
+				<tr>
+					<td>Resume date:</td>
+					<td id="connGroupResumeDate"></td>
+				</tr>
+			</table>
+		</div>
 	</div>
 </div>
 </body>
