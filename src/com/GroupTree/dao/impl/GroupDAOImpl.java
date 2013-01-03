@@ -14,7 +14,7 @@ public class GroupDAOImpl implements GroupDAO{
 		Group group = new Group();
 		try {
 			String info = MainframeCommandEntry.enterCommand(username, password, "LG "+ID);
-			/*System.out.println(info);*/
+			System.out.println(info);
 			if (info.contains("NAME NOT FOUND")) return null;
 			String[] infoLines = info.split("\n");
 			String nowLine;
@@ -149,7 +149,7 @@ public class GroupDAOImpl implements GroupDAO{
 			}
 			group.setUsers(users);
 			
-			/*System.out.println(group.getId());
+			System.out.println(group.getId());
 			System.out.println(group.getSuperiorGroup());
 			System.out.println(group.getOwner());
 			System.out.println(group.getCreated());
@@ -159,7 +159,7 @@ public class GroupDAOImpl implements GroupDAO{
 			for (int k = 0; k<subGroups.size(); k++)
 					System.out.print(subGroups.get(k) + " ");
 			for (int k = 0; k<users.size(); k++)
-				System.out.println(users.get(k).getId() + " " + users.get(k).getAccess() + " " + users.get(k).getAccessCount() + " " + users.get(k).getConnectAttributes() + " " + users.get(k).getUniversalAccess() + " " + users.get(k).getRevokeDate() + " " + users.get(k).getResumeDate());*/
+				System.out.println(users.get(k).getId() + " " + users.get(k).getAccess() + " " + users.get(k).getAccessCount() + " " + users.get(k).getConnectAttributes() + " " + users.get(k).getUniversalAccess() + " " + users.get(k).getRevokeDate() + " " + users.get(k).getResumeDate());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -214,8 +214,8 @@ public class GroupDAOImpl implements GroupDAO{
 				i++;
 			}
 			
-/*			for (int j = 0; j < groups.size(); j++)
-				System.out.println(j+": "+groups.get(j).getId()+"parent: "+groups.get(j).getSuperiorGroup());*/
+			for (int j = 0; j < groups.size(); j++)
+				System.out.println(j+": "+groups.get(j).getId()+"parent: "+groups.get(j).getSuperiorGroup());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
