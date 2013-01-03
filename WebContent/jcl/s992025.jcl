@@ -2,5 +2,5 @@
 //CALLREXX EXEC PGM=IKJEFT01           
 //SYSTSPRT DD SYSOUT=*,HOLD=YES        
 //SYSTSIN DD *                         
-  LU U2501                             
+  LU S992025                           
 /*                                     

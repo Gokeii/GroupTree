@@ -16,6 +16,7 @@ public class UserDAOImpl implements UserDAO{
 		try {
 			String info = MainframeCommandEntry.enterCommand(username, password, "LU "+ID);
 			/*System.out.println(info);*/
+			if (info.contains("UNABLE TO LOCATE")) return null;
 			String[] infoLines = info.split("\n");
 			int lineNo = 2;
 			String nowLine = infoLines[lineNo];

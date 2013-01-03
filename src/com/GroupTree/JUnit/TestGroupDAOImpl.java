@@ -14,7 +14,8 @@ public class TestGroupDAOImpl {
 //		groupDAO.getAllGroups("s992025", "302010");
 		String username = "s992025";
 		String password = "302010";
-		groupDAO.getByID("K", username, password);
-		userDAO.getByID("u2501", username, password);
+		if (groupDAO.getByID("KK", username, password) == null) System.out.println("null!");
+		if (userDAO.getByID("S992025", username, password) == null) System.out.println("null!");
+		
 	}
 }
