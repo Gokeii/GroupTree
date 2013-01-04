@@ -15,7 +15,7 @@ public class GroupDAOImpl implements GroupDAO{
 		try {
 			String info = MainframeCommandEntry.enterCommand(username, password, "LG "+ID);
 			System.out.println(info);
-			if (info.contains("NAME NOT FOUND")) return null;
+			if (info.contains("NAME NOT FOUND") || info.contains("NOT AUTHORIZED")) return null;
 			String[] infoLines = info.split("\n");
 			String nowLine;
 			int lineNo = 2;
