@@ -126,7 +126,7 @@
 		connectedGroups = bean.connectedGroups;
 		$('#connectedGroupsId').empty();
 		for(var i=0;i < connectedGroups.length ; i++){
-			$('#connectedGroupsId').append('<label style="font-family:Consolas,Arial,Serif; font-size:16px; font-weight:bold> '+connectedGroups[i].id+' </label>' +
+			$('#connectedGroupsId').append('<label style="font-family:Consolas,Arial,Serif; font-size:16px; font-weight:bold"> '+connectedGroups[i].id+' </label>' +
 										'<a href="javascript:void(0);">more...</a>');
 	
 		}
