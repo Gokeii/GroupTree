@@ -1,10 +1,13 @@
 package com.GroupTree.utils;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
+
 import org.apache.commons.net.ftp.FTPClient;
 
 public class MainframeCommandEntry {
@@ -34,9 +37,15 @@ public class MainframeCommandEntry {
 			System.err.println("Failed to switch to job entry mode");
 
 		// Submit the job from the text file
-		FileInputStream inputStream = JCLGenerator.JCLGenerate(username,
-				command);
+		
+		FileInputStream inputStream;
+		System.out.println(command);
+		if(!command.equals("SEARCH CLASS(GROUP)"))
+			{inputStream = JCLGenerator.JCLGenerate(username,command);}
+		else
+			{inputStream = JCLGenerator.JCLSubmit(username);}
 		ftp.storeFile(serverName, inputStream);
+
 		String replyText = ftp.getReplyString();
 		System.out.println(replyText);
 		if (replyText.startsWith("250-It is known to JES as ")) {
@@ -50,7 +59,6 @@ public class MainframeCommandEntry {
 		// get job output file(s)
 		InputStream is = ftp.retrieveFileStream(jobID);
 		BufferedReader br = new BufferedReader(new InputStreamReader((is)));
-
 		String line = null;
 		String info = "";
 		while ((line = br.readLine()) != null)
@@ -65,6 +73,7 @@ public class MainframeCommandEntry {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return info;
 	}
 }

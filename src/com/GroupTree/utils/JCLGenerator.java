@@ -41,7 +41,26 @@ public class JCLGenerator {
 			nowLength += line.length() + 2;
 		}
 		raf.close();
-
+		FileInputStream fis = new FileInputStream(newFile);
+		return fis;
+	}		
+	
+	
+	
+	
+	public static FileInputStream JCLSubmit(String username) throws IOException {
+		String path = System.getProperty("user.dir") + "/WebContent/jcl/";
+		String templatePath = null;
+		try {
+			templatePath = JCLGenerator.class.getResource("../jcl/").toURI().getPath()+"DSMON.jcl";
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(templatePath);
+		File template = new File(templatePath);
+		File newFile = new File(new File(path), username + ".jcl");
+		FileUtils.copyFile(template, newFile);
 		FileInputStream fis = new FileInputStream(newFile);
 		return fis;
 	}
