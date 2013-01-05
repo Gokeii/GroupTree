@@ -173,7 +173,7 @@ public class GroupDAOImpl implements GroupDAO{
 	public List<Group> getAllGroups(String username, String password) {
 		List<Group> groups = new LinkedList<Group>();
 			try {
-					//get all available groups
+			//get all available groups
 			String command = "SEARCH CLASS(GROUP)";
 			String info = MainframeCommandEntry.enterCommand(username, password, command);
 			//get 'superior group' attribute of all available groups
@@ -186,37 +186,28 @@ public class GroupDAOImpl implements GroupDAO{
 			Group group;
 			
 			while (position < infoLines.length) {
-				System.out.println("---------START---------");
-				System.out.println("infoLines"+position+"---"+infoLines[position]);
-				
 				group = new Group();
 				String[] temp= infoLines[position].split(" ");
 				if(temp[5].length() != 0 ){
-					
 					id=Integer.parseInt((String)temp[5]);
-					groupID=(String)temp[id+7];
-					
+					groupID=(String)temp[id+7];	
 					if(id!=1)
 						group.setSuperiorGroup(groupPath.get(id-1));
-					
-					System.out.println("upper"+groupPath.get(id-1));
-					System.out.println("Poverity---"+id);		//temp[5] = id
-					System.out.println("id------"+groupID);
-					
 					groupPath.put(id, groupID);
 					group.setId(groupID);
 					groups.add(group);
-
 				}
-			
 				position=position+2;
 				if((position-3) % 53 == 0 ) {
 					position++;
-				}
-				
+				}	
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
+	}
+		return groups;
 			
-			
+		
 			/*		for (int i = 2; i < infoLines.length; i++)
 				System.out.println("infoline"+i+"---"+infoLines[i]);
 			
@@ -264,11 +255,6 @@ public class GroupDAOImpl implements GroupDAO{
 /*			for (int j = 0; j < groups.size(); j++)
 				System.out.println(j+": "+groups.get(j).getId()+"parent: "+groups.get(j).getSuperiorGroup());*/
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		
-		return groups;
+
 	}
 }

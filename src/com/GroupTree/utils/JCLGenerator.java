@@ -61,7 +61,25 @@ public class JCLGenerator {
 		File template = new File(templatePath);
 		File newFile = new File(new File(path), username + ".jcl");
 		FileUtils.copyFile(template, newFile);
+		RandomAccessFile raf = new RandomAccessFile(newFile, "rw");
+
+		String line = null;
+		int nowLength = 0;
+		while ((line = raf.readLine()) != null) {
+			if (line.contains("username") ) {
+				raf.seek(nowLength);
+				if (line.contains("username"))
+					line = line.replace("username", username.toUpperCase());
+				raf.writeBytes(line);
+				raf.seek(0);
+				nowLength = 0;
+				continue;
+			}
+			nowLength += line.length() + 2;
+		}
+		raf.close();
 		FileInputStream fis = new FileInputStream(newFile);
+		
 		return fis;
 	}
 }
